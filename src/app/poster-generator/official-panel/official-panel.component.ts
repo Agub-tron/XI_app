@@ -69,17 +69,53 @@ export class OfficialPanelComponent {
   }
 
   share() {
-    if (navigator.share) {
-      navigator.share({
-        title: 'Afiche de Xavier',
-        text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
-        url: window.location.href,
-      }).catch((error) => console.log('Error sharing', error));
-    } else {
-      // Fallback: copy URL to clipboard
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('Enlace copiado al portapapeles');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = '/base.webp';
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      if (!ctx) return;
+
+      ctx.drawImage(img, 0, 0);
+      ctx.fillStyle = '#000000';
+      ctx.font = `bold ${this.getFontSize() * 2.7}px "Anton", sans-serif`;
+      ctx.textAlign = 'left';
+      ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5);
+
+      canvas.toBlob((blob) => {
+        if (blob && navigator.share && navigator.canShare) {
+          const file = new File([blob], `AFICHE-${this.name()}.png`, { type: 'image/png' });
+          if (navigator.canShare({ files: [file] })) {
+            navigator.share({
+              title: 'Afiche de Xavier',
+              text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
+              files: [file],
+            }).catch((error) => console.log('Error sharing', error));
+          } else {
+            // Fallback to URL
+            navigator.share({
+              title: 'Afiche de Xavier',
+              text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
+              url: window.location.href,
+            }).catch((error) => console.log('Error sharing', error));
+          }
+        } else {
+          // Fallback: download
+          const link = document.createElement('a');
+          link.download = `AFICHE-${this.name()}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          alert('Imagen descargada. Comparte manualmente.');
+        }
       });
-    }
+    };
+
+    img.onerror = () => {
+      alert('Error al cargar la imagen base.');
+    };
   }
 }
