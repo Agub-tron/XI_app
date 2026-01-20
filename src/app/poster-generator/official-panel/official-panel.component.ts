@@ -92,7 +92,7 @@ export class OfficialPanelComponent {
           navigator
             .share({
               title: 'Afiche de Xavier',
-              text: '',
+              text: window.location.href,
               files: [file],
             })
             .catch((error) => {
