@@ -67,4 +67,19 @@ export class OfficialPanelComponent {
       alert('Error al cargar la imagen base. Por favor intenta de nuevo.');
     };
   }
+
+  share() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Afiche de Xavier',
+        text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
+        url: window.location.href,
+      }).catch((error) => console.log('Error sharing', error));
+    } else {
+      // Fallback: copy URL to clipboard
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('Enlace copiado al portapapeles');
+      });
+    }
+  }
 }
