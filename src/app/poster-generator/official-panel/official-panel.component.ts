@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './official-panel.component.html',
 })
 export class OfficialPanelComponent {
-  name = signal('CARLOS');
+   name = signal('');
 
   // Calculate font size based on name length to avoid overflow
   getFontSize() {
@@ -50,10 +50,10 @@ export class OfficialPanelComponent {
       // Draw base image
       ctx.drawImage(img, 0, 0);
 
-      // Draw name text
-      ctx.fillStyle = '#000000'; // Black text
-      ctx.font = `bold ${this.getFontSize() * 2.7}px "Anton", sans-serif`; // Match HTML font size
-      ctx.textAlign = 'left'; // Approximate positioning
+       // Draw name text
+       ctx.fillStyle = '#000000'; // Black text
+       ctx.font = `${this.getFontSize() * 2.7}px "Anton", sans-serif`; // Match HTML font size
+       ctx.textAlign = 'left'; // Approximate positioning
       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5); // Position to match CSS top-[18%] + mt-[5px]
 
       // Download
@@ -80,10 +80,10 @@ export class OfficialPanelComponent {
 
       if (!ctx) return;
 
-      ctx.drawImage(img, 0, 0);
-      ctx.fillStyle = '#000000';
-      ctx.font = `bold ${this.getFontSize() * 2.7}px "Anton", sans-serif`;
-      ctx.textAlign = 'left';
+       ctx.drawImage(img, 0, 0);
+       ctx.fillStyle = '#000000';
+       ctx.font = `${this.getFontSize() * 2.7}px "Anton", sans-serif`;
+       ctx.textAlign = 'left';
       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5);
 
       canvas.toBlob((blob) => {
