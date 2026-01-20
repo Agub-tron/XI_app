@@ -87,22 +87,25 @@ export class OfficialPanelComponent {
       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5);
 
       canvas.toBlob((blob) => {
-        if (blob && navigator.share && navigator.canShare) {
+        if (blob && navigator.share) {
           const file = new File([blob], `AFICHE-${this.name()}.png`, { type: 'image/png' });
-          if (navigator.canShare({ files: [file] })) {
-            navigator.share({
+          navigator
+            .share({
               title: 'Afiche de Xavier',
-              text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
+              text: '',
               files: [file],
-            }).catch((error) => console.log('Error sharing', error));
-          } else {
-            // Fallback to URL
-            navigator.share({
-              title: 'Afiche de Xavier',
-              text: `¡Mira mi afiche personalizado para Xavier! Nombre: ${this.name()}`,
-              url: window.location.href,
-            }).catch((error) => console.log('Error sharing', error));
-          }
+            })
+            .catch((error) => {
+              console.log('File share failed, trying URL', error);
+              // Fallback to URL
+              navigator
+                .share({
+                  title: 'Rumbo a la Alcaldia',
+                  text: '',
+                  url: window.location.href,
+                })
+                .catch((urlError) => console.log('URL share failed', urlError));
+            });
         } else {
           // Fallback: download
           const link = document.createElement('a');
