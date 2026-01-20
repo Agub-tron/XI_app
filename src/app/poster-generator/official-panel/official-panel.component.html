@@ -1,0 +1,98 @@
+<div class="bg-gray-100 dark:bg-gray-900 font-sans antialiased flex flex-col lg:flex-row h-screen overflow-hidden transition-colors duration-300">
+
+   <!-- Header (Mobile only) -->
+   <header class="bg-[#005C28] pt-12 pb-4 px-4 shadow-md flex justify-between items-center z-20 lg:hidden">
+    <button class="text-white p-1 hover:bg-white/10 rounded-full transition-colors">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <div class="flex flex-col items-center">
+      <div class="flex items-center space-x-2">
+        <!-- Logo Icon -->
+        <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"></path>
+        </svg>
+        <div class="flex flex-col leading-none">
+          <span class="font-anton text-white text-lg tracking-wide uppercase">Xavier</span>
+          <span class="text-xs text-white/90 italic">¡Con visión y coraje!</span>
+        </div>
+      </div>
+    </div>
+    <button class="text-white p-1 hover:bg-white/10 rounded-full transition-colors">
+      <span class="material-icons">share</span>
+    </button>
+  </header>
+
+   <!-- Main Content -->
+   <main class="flex-grow flex items-center justify-center p-6 relative overflow-y-auto bg-gray-100 dark:bg-gray-800 transition-colors duration-300 lg:flex-1">
+
+     <!-- Poster Card -->
+     <!-- Aspect ratio adjusted to match typical poster dimensions, roughly 3:4 or similar. -->
+     <div #posterCard class="relative w-full max-w-sm aspect-[577/813] bg-white rounded-lg shadow-2xl overflow-hidden lg:max-w-md">
+
+      <!-- Base Image -->
+      <img src="/base.webp" alt="Base Poster" class="absolute inset-0 w-full h-full object-cover z-0">
+
+       <!-- Text Overlay Area (No Patch) -->
+       <div class="absolute top-[18%] left-[10%] w-[85%] z-10 flex flex-col justify-center">
+
+          <!-- Dynamic Name -->
+          <h1 class="font-anton uppercase text-black leading-[0.85] tracking-tight mb-1 mt-[6.5px]"
+              [style.fontSize.px]="getFontSize()">
+              {{ name() }}
+          </h1>
+
+
+
+
+      </div>
+
+    </div>
+  </main>
+
+   <!-- Controls (Desktop: Sidebar, Mobile: Bottom Sheet) -->
+   <div class="bg-[#FADD00] dark:bg-yellow-600 rounded-t-[2rem] lg:rounded-t-none lg:rounded-l-[2rem] shadow-[0_-5px_20px_rgba(0,0,0,0.15)] lg:shadow-[-5px_0_20px_rgba(0,0,0,0.15)] z-30 flex flex-col transition-colors duration-300 lg:w-80 lg:h-full">
+     <div class="w-12 h-1.5 bg-black/10 rounded-full mx-auto mt-3 mb-4 lg:hidden"></div>
+     <div class="px-8 pb-8 pt-2 lg:pt-8 flex flex-col h-full">
+       <!-- Desktop Header -->
+       <div class="hidden lg:block mb-6">
+         <div class="flex items-center space-x-2 mb-4">
+           <svg class="w-10 h-10 text-[#005C28] fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+             <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"></path>
+           </svg>
+           <div class="flex flex-col leading-none">
+             <span class="font-anton text-[#005C28] text-xl tracking-wide uppercase">Xavier</span>
+             <span class="text-sm text-[#005C28]/80 italic">¡Con visión y coraje!</span>
+           </div>
+         </div>
+       </div>
+
+       <div class="mb-6">
+        <label class="block text-[#111111] dark:text-black font-anton text-xl uppercase tracking-wide mb-2" for="nameInput">
+          ¿Cómo te llamas?
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="material-icons text-gray-400">person</span>
+          </div>
+          <input
+            class="block w-full pl-10 pr-3 py-4 text-lg font-anton text-gray-900 bg-white rounded-xl border-0 ring-1 ring-gray-200 focus:ring-4 focus:ring-[#005C28]/50 focus:border-[#005C28] placeholder-gray-400 shadow-sm transition-shadow duration-200"
+            id="nameInput"
+            placeholder="Escribe tu nombre aquí"
+            type="text"
+            [ngModel]="name()"
+            (input)="updateName($event)"
+            maxlength="20"
+          />
+        </div>
+        <p class="text-xs text-[#111111]/60 dark:text-black/60 mt-2 ml-1 font-medium">
+          Tu nombre aparecerá en el afiche.
+        </p>
+      </div>
+
+      <button (click)="downloadCard()" class="w-full bg-[#111111] hover:bg-black text-white font-anton text-xl tracking-wider py-5 rounded-xl shadow-lg transform active:scale-[0.98] transition-all flex justify-center items-center group mt-auto mb-4">
+        DESCARGAR IMAGEN
+        <span class="material-icons ml-2 group-hover:translate-x-1 transition-transform">download</span>
+      </button>
+    </div>
+  </div>
+</div>
