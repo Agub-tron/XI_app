@@ -1,0 +1,3 @@
+[build]
+  publish = "dist/XI_asp/browser"
+  command = "npm run build"
