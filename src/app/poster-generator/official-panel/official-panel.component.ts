@@ -54,7 +54,7 @@ export class OfficialPanelComponent {
        ctx.fillStyle = '#000000'; // Black text
        ctx.font = `${this.getFontSize() * 2.7}px "Anton", sans-serif`; // Match HTML font size
        ctx.textAlign = 'left'; // Approximate positioning
-      ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5); // Position to match CSS top-[18%] + mt-[5px]
+       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.08, canvas.height * 0.25 + 5); // Position to match CSS top-[18%] + mt-[5px]
 
       // Download
       const link = document.createElement('a');
@@ -84,7 +84,7 @@ export class OfficialPanelComponent {
        ctx.fillStyle = '#000000';
        ctx.font = `${this.getFontSize() * 2.7}px "Anton", sans-serif`;
        ctx.textAlign = 'left';
-      ctx.fillText(this.name().toUpperCase(), canvas.width * 0.1, canvas.height * 0.25 + 5);
+       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.01, canvas.height * 0.25 + 5);
 
       canvas.toBlob((blob) => {
         if (blob && navigator.share) {
