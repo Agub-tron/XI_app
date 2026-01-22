@@ -84,7 +84,7 @@ export class OfficialPanelComponent {
        ctx.fillStyle = '#000000';
        ctx.font = `${this.getFontSize() * 2.7}px "Anton", sans-serif`;
        ctx.textAlign = 'left';
-       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.01, canvas.height * 0.25 + 5);
+       ctx.fillText(this.name().toUpperCase(), canvas.width * 0.08, canvas.height * 0.25 + 5);
 
       canvas.toBlob((blob) => {
         if (blob && navigator.share) {
